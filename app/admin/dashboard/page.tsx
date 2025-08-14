@@ -22,6 +22,7 @@ interface ComplaintType {
   referenceNumber: string
   student: string
   examName: string
+  course: string
   createdAt: string
   type: string
   status: string
@@ -111,7 +112,8 @@ export default function AdminDashboard() {
     const matchesSearch =
       complaint.referenceNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (complaint.student && complaint.student.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      complaint.examName.toLowerCase().includes(searchTerm.toLowerCase())
+      complaint.examName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (complaint.course && complaint.course.toLowerCase().includes(searchTerm.toLowerCase()))
 
     const matchesStatus = statusFilter === "all" || complaint.status === statusFilter
 
@@ -450,6 +452,9 @@ export default function AdminDashboard() {
                               <span className="font-medium">Exam:</span> {complaint.examName}
                             </p>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
+                              <span className="font-medium">Course:</span> {complaint.course || "N/A"}
+                            </p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                               <span className="font-medium">Date:</span>{" "}
                               {complaint.createdAt
                                 ? new Date(complaint.createdAt).toLocaleDateString("en-US", {
@@ -502,6 +507,9 @@ export default function AdminDashboard() {
                         Exam
                       </TableHead>
                       <TableHead className="font-semibold text-gray-700 dark:text-gray-300 text-sm hidden lg:table-cell">
+                        Course
+                      </TableHead>
+                      <TableHead className="font-semibold text-gray-700 dark:text-gray-300 text-sm hidden lg:table-cell">
                         Date
                       </TableHead>
                       <TableHead className="font-semibold text-gray-700 dark:text-gray-300 text-sm hidden md:table-cell">
@@ -533,6 +541,9 @@ export default function AdminDashboard() {
                             {complaint.examName}
                           </TableCell>
                           <TableCell className="hidden lg:table-cell text-sm text-gray-700 dark:text-gray-300">
+                            {complaint.course || "N/A"}
+                          </TableCell>
+                          <TableCell className="hidden lg:table-cell text-sm text-gray-700 dark:text-gray-300">
                             {complaint.createdAt
                               ? new Date(complaint.createdAt).toLocaleDateString("en-US", {
                                   year: "numeric",
@@ -560,7 +571,7 @@ export default function AdminDashboard() {
                       ))
                     ) : (
                       <TableRow>
-                        <TableCell colSpan={7} className="text-center py-8 sm:py-12">
+                        <TableCell colSpan={8} className="text-center py-8 sm:py-12">
                           <div className="flex flex-col items-center space-y-4">
                             <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
                               <FileText className="w-8 h-8 text-gray-400 dark:text-gray-500" />

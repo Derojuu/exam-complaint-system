@@ -418,6 +418,10 @@ function renderComplaintList(complaints: Complaint[], getStatusBadge: (status: s
                         <Clock className="h-4 w-4 text-gray-400 dark:text-gray-500" />
                         <span>{complaint.type || complaint.complaintType}</span>
                       </div>
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-gray-400 dark:text-gray-500" />
+                        <span>{complaint.course || 'N/A'}</span>
+                      </div>
                       {complaint.referenceNumber && (
                         <div className="flex items-center gap-2">
                           <FileText className="h-4 w-4 text-gray-400 dark:text-gray-500" />
