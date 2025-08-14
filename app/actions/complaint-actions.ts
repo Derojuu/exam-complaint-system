@@ -125,12 +125,11 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
     }
 
     // Create the complaint (let PostgreSQL auto-generate the UUID)
-    const complaintResult = await executeQuery(`
+    await executeQuery(`
       INSERT INTO complaints (
         reference_number, full_name, student_id, email, phone, exam_name, exam_date,
         complaint_type, description, desired_resolution, evidence_file, course, department, faculty, user_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-      RETURNING id
     `, [
       referenceNumber,
       validationData.fullName,
@@ -149,8 +148,6 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
       userId
     ])
 
-    const complaintId = (complaintResult.rows[0] as any).id
-
     // Revalidate the complaints page
     revalidatePath("/track-complaint")
     revalidatePath("/admin/dashboard")
@@ -159,7 +156,6 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
     return {
       message: "Complaint submitted successfully!",
       referenceNumber,
-      complaintId,
     }
   } catch (error) {
     console.error("Error submitting complaint:", {
