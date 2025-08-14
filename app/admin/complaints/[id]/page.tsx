@@ -425,8 +425,9 @@ export default function ComplaintDetail() {
                         <School className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                         Exam Information
                       </h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
-                        <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700 sm:col-span-2">
+                      <div className="space-y-6">
+                        {/* Exam Name - Full Width Row */}
+                        <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
                           <FileText className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
                           <div className="min-w-0">
                             <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Exam Name</p>
@@ -434,35 +435,38 @@ export default function ComplaintDetail() {
                           </div>
                         </div>
 
-                        <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                          <School className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
-                          <div className="min-w-0">
-                            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Course Code</p>
-                            <p className="text-gray-900 dark:text-gray-100 font-medium break-words">{complaint.course || "N/A"}</p>
+                        {/* Other Fields - Second Row */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                          <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <School className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Course Code</p>
+                              <p className="text-gray-900 dark:text-gray-100 font-medium break-words">{complaint.course || "N/A"}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
-                          <Calendar className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
-                          <div className="min-w-0">
-                            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Exam Date</p>
-                            <p className="text-gray-900 dark:text-gray-100 break-words">
-                              {complaint.examDate
-                                ? new Date(complaint.examDate).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                  })
-                                : "N/A"}
-                            </p>
+                          <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <Calendar className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Exam Date</p>
+                              <p className="text-gray-900 dark:text-gray-100 break-words">
+                                {complaint.examDate
+                                  ? new Date(complaint.examDate).toLocaleDateString("en-US", {
+                                      year: "numeric",
+                                      month: "short",
+                                      day: "numeric",
+                                    })
+                                  : "N/A"}
+                              </p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700 sm:col-span-4">
-                          <AlertCircle className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
-                          <div className="min-w-0">
-                            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Complaint Type</p>
-                            <p className="text-gray-900 dark:text-gray-100 break-words capitalize">{complaint.complaintType}</p>
+                          <div className="flex items-start gap-3 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+                            <AlertCircle className="h-5 w-5 text-gray-400 dark:text-gray-500 mt-0.5 flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Complaint Type</p>
+                              <p className="text-gray-900 dark:text-gray-100 break-words capitalize">{complaint.complaintType}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
