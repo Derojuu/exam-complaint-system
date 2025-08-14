@@ -83,17 +83,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       const query = `
         SELECT 
-          c.*,
-          u.first_name,
-          u.last_name,
-          u.email,
-          u.phone,
+          c.id,
+          c.reference_number as "referenceNumber",
+          c.full_name as "fullName",
+          c.student_id as "studentId",
+          c.email,
+          c.phone,
+          c.exam_name as "examName",
+          c.exam_date as "examDate",
+          c.complaint_type as "complaintType",
+          c.description,
+          c.desired_resolution as "desiredResolution",
+          c.evidence_file as "evidenceFile",
+          c.status,
+          c.course,
+          c.department,
+          c.faculty,
+          c.user_id as "userId",
+          u.first_name as "firstName",
+          u.last_name as "lastName",
+          u.email as "userEmail",
+          u.phone as "userPhone",
           u.level,
-          u.department as user_department,
-          u.faculty as user_faculty,
-          u.courses as user_courses,
-          c.exam_date,
-          TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at
+          u.department as "userDepartment",
+          u.faculty as "userFaculty",
+          u.courses as "userCourses",
+          TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as "createdAt",
+          TO_CHAR(c.updated_at, 'YYYY-MM-DD HH24:MI:SS') as "updatedAt"
         FROM complaints c
         INNER JOIN users u ON c.user_id = u.id
         WHERE c.id = $1 ${accessWhereClause}
@@ -141,12 +157,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Students can only see their own complaints
       const result = await executeQuery(`
         SELECT 
-          c.*,
-          u.department AS user_department,
-          u.faculty AS user_faculty,
-          u.level AS user_level,
-          c.exam_date,
-          TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at
+          c.id,
+          c.reference_number as "referenceNumber",
+          c.full_name as "fullName",
+          c.student_id as "studentId",
+          c.email,
+          c.phone,
+          c.exam_name as "examName",
+          c.exam_date as "examDate",
+          c.complaint_type as "complaintType",
+          c.description,
+          c.desired_resolution as "desiredResolution",
+          c.evidence_file as "evidenceFile",
+          c.status,
+          c.course,
+          c.department,
+          c.faculty,
+          c.user_id as "userId",
+          u.department AS "userDepartment",
+          u.faculty AS "userFaculty",
+          u.level AS "userLevel",
+          TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as "createdAt",
+          TO_CHAR(c.updated_at, 'YYYY-MM-DD HH24:MI:SS') as "updatedAt"
         FROM complaints c
         INNER JOIN users u ON c.user_id = u.id
         WHERE c.id = $1 AND c.user_id = $2
