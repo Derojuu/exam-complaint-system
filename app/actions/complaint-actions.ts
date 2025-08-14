@@ -1,6 +1,6 @@
 "use server"
 import { z } from "zod"
-import { executeQuery, generateId, generateReferenceNumber } from "@/lib/db"
+import { executeQuery, generateReferenceNumber } from "@/lib/db"
 import bcrypt from "bcryptjs"
 import { revalidatePath } from "next/cache"
 
@@ -80,7 +80,6 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
 
   // Generate a unique reference number
   const referenceNumber = generateReferenceNumber()
-  const complaintId = generateId()
 
   try {
     // Check if user exists
@@ -95,14 +94,13 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
       userId = (userResult.rows[0] as any).id
     } else {
       // If user doesn't exist, create a temporary one
-      userId = generateId()
       const hashedPassword = await bcrypt.hash("temporary-password", 10)
       
-      await executeQuery(`
-        INSERT INTO users (id, email, first_name, last_name, student_id, password, role)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+      const newUserResult = await executeQuery(`
+        INSERT INTO users (email, first_name, last_name, student_id, password, role)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING id
       `, [
-        userId,
         validationData.email,
         validationData.fullName.split(" ")[0] || "",
         validationData.fullName.split(" ")[1] || "",
@@ -110,6 +108,8 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
         hashedPassword,
         "student"
       ])
+      
+      userId = (newUserResult.rows[0] as any).id
     }
 
     // Extract course, department, and faculty information from the exam name
@@ -124,14 +124,14 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
       }
     }
 
-    // Create the complaint
-    await executeQuery(`
+    // Create the complaint (let PostgreSQL auto-generate the UUID)
+    const complaintResult = await executeQuery(`
       INSERT INTO complaints (
-        id, reference_number, full_name, student_id, email, phone, exam_name, exam_date,
+        reference_number, full_name, student_id, email, phone, exam_name, exam_date,
         complaint_type, description, desired_resolution, evidence_file, course, department, faculty, user_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+      RETURNING id
     `, [
-      complaintId,
       referenceNumber,
       validationData.fullName,
       validationData.studentId,
@@ -148,6 +148,8 @@ export async function submitComplaint(prevState: ComplaintFormState, formData: F
       faculty,
       userId
     ])
+
+    const complaintId = (complaintResult.rows[0] as any).id
 
     // Revalidate the complaints page
     revalidatePath("/track-complaint")

@@ -55,22 +55,12 @@ export default async function handler(
       return res.status(400).json({ success: false, message: 'Invalid upload type' })
     }
 
-    // Create temporary directory for processing uploads
-    const tempDir = path.join(process.cwd(), 'temp')
-    if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true })
-    }
-
-    // Configure formidable
+    // Configure formidable for serverless environment (no temp directory)
     const form = formidable({
-      uploadDir: tempDir,
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10MB limit
-      filename: (name, ext, part) => {
-        const timestamp = Date.now()
-        const userId = session.userId
-        return `temp-${userId}-${timestamp}-${part.originalFilename}`
-      }
+      // Don't specify uploadDir for serverless - use memory
+      multiples: false,
     })
     
     // Define allowed file types
@@ -102,26 +92,27 @@ export default async function handler(
     const ext = path.extname(file.originalFilename || '').toLowerCase()
     if (!allowedFileTypes.includes(ext)) {
       console.log(`File type validation failed: ${ext}`)
-      // Clean up uploaded file
-      if (file.filepath && fs.existsSync(file.filepath)) {
-        fs.unlinkSync(file.filepath)
-      }
       return res.status(400).json({ 
         success: false, 
         message: `Invalid file type: ${ext}. Allowed types: ${allowedFileTypes.join(', ')}` 
       })
     }
 
-    // Verify file was uploaded successfully
-    if (!file.filepath || !fs.existsSync(file.filepath)) {
-      return res.status(500).json({ success: false, message: 'File upload failed - file not found' })
-    }
+    // Read the file buffer directly (formidable stores it in memory for serverless)
+    let fileBuffer: Buffer
     
+    if (file.filepath && fs.existsSync(file.filepath)) {
+      // File was stored temporarily, read it
+      fileBuffer = fs.readFileSync(file.filepath)
+      // Clean up temp file immediately
+      fs.unlinkSync(file.filepath)
+    } else {
+      // File should be in memory, but let's handle the error case
+      return res.status(500).json({ success: false, message: 'File processing failed - no file data available' })
+    }
+
     // Generate folder name for Cloudinary
     const folder = type === 'profile' ? 'profile-pics' : 'evidence'
-    
-    // Read the file buffer
-    const fileBuffer = fs.readFileSync(file.filepath)
 
     console.log('File buffer size:', fileBuffer.length, 'bytes')
 
@@ -145,11 +136,6 @@ export default async function handler(
 
     } catch (uploadError: any) {
       console.error('Cloudinary upload error:', uploadError)
-      
-      // Clean up temp file
-      if (fs.existsSync(file.filepath)) {
-        fs.unlinkSync(file.filepath)
-      }
       
       return res.status(500).json({ 
         success: false, 

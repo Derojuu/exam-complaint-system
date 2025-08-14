@@ -1,6 +1,6 @@
 "use server"
 
-import { executeQuery, generateId } from "@/lib/db"
+import { executeQuery } from "@/lib/db"
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { serialize } from "cookie"
@@ -217,7 +217,7 @@ export async function login(data: { email: string; password: string; role: strin
     }
 
     // Create a session
-    const sessionId = generateId()
+    const sessionId = Date.now().toString(36) + Math.random().toString(36).substr(2, 9)
     const session = {
       id: sessionId,
       userId: user.id,

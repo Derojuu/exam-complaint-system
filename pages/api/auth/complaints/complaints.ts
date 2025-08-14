@@ -1,4 +1,4 @@
-import { generateId, generateReferenceNumber, executeQuery } from "@/lib/db";
+import { generateReferenceNumber, executeQuery } from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
 import { IncomingForm } from "formidable";
 import { z } from "zod";
@@ -208,10 +208,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           evidenceUrl,        } = validationResult.data;
 
         // Use the evidenceUrl from the form data (uploaded via separate API)
-        const evidenceFile = evidenceUrl || null;try {
+        const evidenceFile = evidenceUrl || null;
+
+        try {
           console.log("Database connected successfully.");
 
-          const complaintId = generateId();
           const referenceNumber = generateReferenceNumber();
 
           // Convert examDate to PostgreSQL timestamp format
@@ -219,11 +220,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
           await executeQuery(`
             INSERT INTO complaints (
-              id, reference_number, user_id, full_name, student_id, email, phone, exam_name, exam_date, complaint_type, description, desired_resolution, evidence_file, course, department, faculty
+              reference_number, user_id, full_name, student_id, email, phone, exam_name, exam_date, complaint_type, description, desired_resolution, evidence_file, course, department, faculty
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
           `, [
-            complaintId,
             referenceNumber,
             session.userId,
             fullName,
