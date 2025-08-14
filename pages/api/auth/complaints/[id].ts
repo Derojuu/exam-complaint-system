@@ -92,7 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           u.department as user_department,
           u.faculty as user_faculty,
           u.courses as user_courses,
-          TO_CHAR(c.exam_date, 'YYYY-MM-DD') as exam_date,
+          c.exam_date,
           TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at
         FROM complaints c
         INNER JOIN users u ON c.user_id = u.id
@@ -145,7 +145,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           u.department AS user_department,
           u.faculty AS user_faculty,
           u.level AS user_level,
-          TO_CHAR(c.exam_date, 'YYYY-MM-DD') as exam_date,
+          c.exam_date,
           TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as created_at
         FROM complaints c
         INNER JOIN users u ON c.user_id = u.id

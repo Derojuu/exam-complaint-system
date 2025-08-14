@@ -116,7 +116,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               c.reference_number as "referenceNumber",
               c.full_name AS student,
               c.exam_name as "examName",
-              TO_CHAR(c.exam_date::date, 'YYYY-MM-DD') as "examDate",
+              c.exam_date as "examDate",
               TO_CHAR(c.created_at, 'YYYY-MM-DD HH24:MI:SS') as "createdAt",
               c.complaint_type AS type,
               c.status,
@@ -139,7 +139,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               reference_number as "referenceNumber",
               full_name AS student,
               exam_name as "examName",
-              TO_CHAR(exam_date::date, 'YYYY-MM-DD') as "examDate",
+              exam_date as "examDate",
               TO_CHAR(created_at, 'YYYY-MM-DD HH24:MI:SS') as "createdAt",
               complaint_type AS type,
               status
