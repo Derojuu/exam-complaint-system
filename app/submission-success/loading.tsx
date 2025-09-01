@@ -1,11 +1,28 @@
-// app/track/loading.tsx
 export default function Loading() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="flex flex-col items-center gap-4">
-        <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
-        <p className="text-sm text-gray-600">Loading please wait...</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative flex items-center justify-center">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200/20 dark:bg-purple-800/10 rounded-full opacity-60 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200/20 dark:bg-blue-800/10 rounded-full opacity-40 animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="max-w-md w-full mx-4 relative z-10">
+        <div className="glass-effect border-0 shadow-xl rounded-xl p-8 text-center">
+          <div className="space-y-6">
+            <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto animate-pulse"></div>
+            <div className="space-y-4">
+              <div className="w-48 h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mx-auto"></div>
+              <div className="w-64 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mx-auto"></div>
+              <div className="w-56 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mx-auto"></div>
+            </div>
+            <div className="space-y-3">
+              <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+              <div className="w-32 h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mx-auto"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  );
+  )
 }
