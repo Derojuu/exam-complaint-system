@@ -3,21 +3,21 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Eye, EyeOff, ArrowLeft, FileText, Shield, Users, Mail, Lock } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
 import { LoadingOverlay } from "@/components/loading-overlay"
+import { LoginPageHeader } from "@/components/login/LoginPageHeader"
+import { LoginCardHeader } from "@/components/login/LoginCardHeader"
+import { LoginTabs } from "@/components/login/LoginTabs"
+import { StudentLoginForm } from "@/components/login/StudentLoginForm"
+import { AdminLoginForm } from "@/components/login/AdminLoginForm"
+import { LoginFooter } from "@/components/login/LoginFooter"
 
 export default function Login() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState("student")
+  const [activeTab, setActiveTab] = useState<"student" | "admin">("student")
   const [error, setError] = useState<string | null>(null)
   const [showStudentPassword, setShowStudentPassword] = useState(false)
   const [showAdminPassword, setShowAdminPassword] = useState(false)
@@ -79,194 +79,37 @@ export default function Login() {
       </div>
 
       <div className="relative z-10 w-full max-w-sm sm:max-w-md">
-        {/* Back to home link */}
-        <div className="flex items-center justify-between mb-6">
-          <Link
-            href="/"
-            className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
-          <ThemeToggle />
-        </div>
+        <LoginPageHeader />
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <Card className="glass-effect shadow-2xl border-0 dark:bg-gray-800/50">
-            <CardHeader className="text-center space-y-3 pb-6 sm:space-y-4 sm:pb-8">
-              <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <FileText className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <CardTitle className="text-xl sm:text-2xl font-bold text-gradient">Welcome Back</CardTitle>
-                <CardDescription className="text-gray-600 dark:text-gray-400 mt-2">
-                  Sign in to access your exam complaint dashboard
-                </CardDescription>
-              </div>
-            </CardHeader>
+            <LoginCardHeader />
 
             <CardContent className="space-y-6">
               {mounted ? (
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="grid w-full grid-cols-2 mb-8 bg-gray-100/50 dark:bg-gray-800/50 p-1 rounded-xl">
-                    <TabsTrigger
-                      value="student"
-                      id="login-tab-student"
-                      className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm rounded-lg transition-all text-gray-700 dark:text-gray-300"
-                    >
-                      <Users className="w-4 h-4" />
-                      <span>Student</span>
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="admin"
-                      id="login-tab-admin"
-                      className="flex items-center space-x-2 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-sm rounded-lg transition-all text-gray-700 dark:text-gray-300"
-                    >
-                      <Shield className="w-4 h-4" />
-                      <span>Admin</span>
-                    </TabsTrigger>
-                  </TabsList>
+                <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "student" | "admin")} className="w-full">
+                  <LoginTabs />
 
                   <TabsContent value="student" id="login-content-student">
-                  <form onSubmit={(e) => handleLogin(e, "student")} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="student-email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Email Address
-                      </Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <Input
-                          id="student-email"
-                          name="email"
-                          type="email"
-                          placeholder="Enter your email"
-                          required
-                          className="h-10 sm:h-12 pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 text-gray-900 dark:text-gray-100"
-                        />
-                      </div>
-                    </div>
+                    <StudentLoginForm
+                      showPassword={showStudentPassword}
+                      setShowPassword={setShowStudentPassword}
+                      error={error}
+                      isLoading={isLoading}
+                      onSubmit={(e) => handleLogin(e, "student")}
+                    />
+                  </TabsContent>
 
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label
-                          htmlFor="student-password"
-                          className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                          Password
-                        </Label>
-                        <Link
-                          href="/forgot-password"
-                          className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
-                        >
-                          Forgot password?
-                        </Link>
-                      </div>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <Input
-                          id="student-password"
-                          name="password"
-                          type={showStudentPassword ? "text" : "password"}
-                          placeholder="Enter your password"
-                          required
-                          className="h-10 sm:h-12 pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 text-gray-900 dark:text-gray-100"
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-                          onClick={() => setShowStudentPassword(!showStudentPassword)}
-                        >
-                          {showStudentPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                        </button>
-                      </div>
-                    </div>
-
-                    {error && (
-                      <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                        <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
-                      </div>
-                    )}
-
-                    <Button
-                      type="submit"
-                      className="w-full h-10 sm:h-12 btn-gradient text-white font-medium"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Signing in..." : "Sign In as Student"}
-                    </Button>
-                  </form>
-                </TabsContent>
-
-                <TabsContent value="admin" id="login-content-admin">
-                  <form onSubmit={(e) => handleLogin(e, "admin")} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="admin-email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Admin Email
-                      </Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <Input
-                          id="admin-email"
-                          name="email"
-                          type="email"
-                          placeholder="Enter admin email"
-                          required
-                          className="h-10 sm:h-12 pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 text-gray-900 dark:text-gray-100"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Label
-                          htmlFor="admin-password"
-                          className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                          Password
-                        </Label>
-                        <Link
-                          href="/forgot-password"
-                          className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
-                        >
-                          Forgot password?
-                        </Link>
-                      </div>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                        <Input
-                          id="admin-password"
-                          name="password"
-                          type={showAdminPassword ? "text" : "password"}
-                          placeholder="Enter admin password"
-                          required
-                          className="h-10 sm:h-12 pl-10 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 text-gray-900 dark:text-gray-100"
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-                          onClick={() => setShowAdminPassword(!showAdminPassword)}
-                        >
-                          {showAdminPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                        </button>
-                      </div>
-                    </div>
-
-                    {error && (
-                      <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                        <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
-                      </div>
-                    )}
-
-                    <Button
-                      type="submit"
-                      className="w-full h-10 sm:h-12 btn-gradient text-white font-medium"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Signing in..." : "Sign In as Administrator"}
-                    </Button>
-                  </form>
-                </TabsContent>
-              </Tabs>
+                  <TabsContent value="admin" id="login-content-admin">
+                    <AdminLoginForm
+                      showPassword={showAdminPassword}
+                      setShowPassword={setShowAdminPassword}
+                      error={error}
+                      isLoading={isLoading}
+                      onSubmit={(e) => handleLogin(e, "admin")}
+                    />
+                  </TabsContent>
+                </Tabs>
               ) : (
                 <div className="text-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
@@ -274,19 +117,7 @@ export default function Login() {
               )}
             </CardContent>
 
-            <div className="px-6 pb-6">
-              <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Don't have an account?{" "}
-                  <Link
-                    href={activeTab === "student" ? "/register" : "/register/admin"}
-                    className="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium transition-colors"
-                  >
-                    Create one here
-                  </Link>
-                </p>
-              </div>
-            </div>
+            <LoginFooter activeTab={activeTab} />
           </Card>
         </motion.div>
       </div>

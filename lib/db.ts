@@ -23,6 +23,7 @@ const config = {
 
 let pool: Pool | null = null
 let isInitialized = false
+let initializationInProgress = false
 
 export async function getDb(): Promise<Pool> {
   try {
@@ -32,7 +33,7 @@ export async function getDb(): Promise<Pool> {
       console.log('PostgreSQL connection pool created successfully!');
       
       // Auto-initialize tables on first connection
-      if (!isInitialized) {
+      if (!isInitialized && !initializationInProgress) {
         console.log('Initializing database tables...');
         await initDb();
       }
@@ -47,8 +48,9 @@ export async function getDb(): Promise<Pool> {
 
 // Initialize database tables for Supabase PostgreSQL
 export async function initDb() {
-  if (isInitialized) return;
+  if (isInitialized || initializationInProgress) return;
   
+  initializationInProgress = true;
   try {
     if (!pool) {
       throw new Error('Database pool not initialized');
@@ -243,18 +245,22 @@ export async function initDb() {
       $$ language 'plpgsql'
     `);
 
+    // Drop existing triggers first, then create them
+    await client.query(`DROP TRIGGER IF EXISTS update_users_updated_at ON users`);
     await client.query(`
       CREATE TRIGGER update_users_updated_at 
       BEFORE UPDATE ON users
       FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
     `);
 
+    await client.query(`DROP TRIGGER IF EXISTS update_complaints_updated_at ON complaints`);
     await client.query(`
       CREATE TRIGGER update_complaints_updated_at 
       BEFORE UPDATE ON complaints
       FOR EACH ROW EXECUTE FUNCTION update_updated_at_column()
     `);
 
+    await client.query(`DROP TRIGGER IF EXISTS update_notifications_updated_at ON notifications`);
     await client.query(`
       CREATE TRIGGER update_notifications_updated_at 
       BEFORE UPDATE ON notifications
@@ -287,9 +293,11 @@ export async function initDb() {
 
     client.release();
     isInitialized = true;
+    initializationInProgress = false;
     console.log('✅ All database tables initialized successfully for Supabase');
   } catch (error) {
     console.error('❌ Database initialization failed:', error);
+    initializationInProgress = false;
     throw error;
   }
 }
