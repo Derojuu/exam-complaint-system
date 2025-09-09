@@ -36,8 +36,8 @@ export function AdminRoleInfo({
           Position
         </Label>
         <Select value={position} onValueChange={setPosition}>
-          <SelectTrigger className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-            errors.position ? "border-red-500" : ""
+          <SelectTrigger className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+            errors.position ? "border-purple-500" : ""
           }`}>
             <SelectValue placeholder="Select your position" />
           </SelectTrigger>
@@ -49,7 +49,7 @@ export function AdminRoleInfo({
             <SelectItem value="registrar">Registrar</SelectItem>
           </SelectContent>
         </Select>
-        {errors.position && <p className="text-red-600 text-sm">{errors.position}</p>}
+        {errors.position && <p className="text-purple-600 text-sm">{errors.position}</p>}
       </div>
 
       {(position === "hod" || position === "coordinator") && (
@@ -59,8 +59,8 @@ export function AdminRoleInfo({
             Department
           </Label>
           <Select value={department} onValueChange={setDepartment}>
-            <SelectTrigger className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-              errors.department ? "border-red-500" : ""
+            <SelectTrigger className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+              errors.department ? "border-purple-500" : ""
             }`}>
               <SelectValue placeholder="Select department" />
             </SelectTrigger>
@@ -74,7 +74,7 @@ export function AdminRoleInfo({
               <SelectItem value="Economics">Economics</SelectItem>
             </SelectContent>
           </Select>
-          {errors.department && <p className="text-red-600 text-sm">{errors.department}</p>}
+          {errors.department && <p className="text-purple-600 text-sm">{errors.department}</p>}
         </div>
       )}
 
@@ -85,8 +85,8 @@ export function AdminRoleInfo({
             Faculty
           </Label>
           <Select value={faculty} onValueChange={setFaculty}>
-            <SelectTrigger className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-              errors.faculty ? "border-red-500" : ""
+            <SelectTrigger className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+              errors.faculty ? "border-purple-500" : ""
             }`}>
               <SelectValue placeholder="Select faculty" />
             </SelectTrigger>
@@ -99,7 +99,7 @@ export function AdminRoleInfo({
               <SelectItem value="Education">Faculty of Education</SelectItem>
             </SelectContent>
           </Select>
-          {errors.faculty && <p className="text-red-600 text-sm">{errors.faculty}</p>}
+          {errors.faculty && <p className="text-purple-600 text-sm">{errors.faculty}</p>}
         </div>
       )}
 
@@ -109,7 +109,7 @@ export function AdminRoleInfo({
           Courses/Subjects (Optional)
         </Label>
         <Select value={courses} onValueChange={setCourses}>
-          <SelectTrigger className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20">
+          <SelectTrigger className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20">
             <SelectValue placeholder="Select courses you oversee" />
           </SelectTrigger>
           <SelectContent>

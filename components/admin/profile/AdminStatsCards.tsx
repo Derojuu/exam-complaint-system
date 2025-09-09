@@ -37,7 +37,7 @@ export function AdminStatsCards({ adminStats }: AdminStatsProps) {
       title: "Pending Review",
       value: adminStats.pendingReview.toLocaleString(),
       icon: Clock,
-      color: "text-orange-600 bg-orange-100 dark:bg-orange-900/30",
+      color: "text-purple-600 bg-purple-100 dark:bg-purple-900/30",
       trend: "-5%",
       trendColor: "text-green-600"
     },
@@ -84,18 +84,18 @@ export function AdminStatsCards({ adminStats }: AdminStatsProps) {
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
       {stats.map((stat, index) => (
         <Card key={index} className="border-0 shadow-lg glass-effect card-hover">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stat.value}</p>
-                <p className={`text-sm ${stat.trendColor} font-medium`}>{stat.trend}</p>
+              <div className="min-w-0 flex-1 mr-3">
+                <p className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 truncate">{stat.title}</p>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-gray-100 truncate">{stat.value}</p>
+                <p className={`text-xs sm:text-sm ${stat.trendColor} font-medium`}>{stat.trend}</p>
               </div>
-              <div className={`w-12 h-12 ${stat.color} rounded-lg flex items-center justify-center`}>
-                <stat.icon className="w-6 h-6" />
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 ${stat.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <stat.icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
             </div>
           </CardContent>

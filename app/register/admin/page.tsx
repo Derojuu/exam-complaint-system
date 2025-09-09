@@ -154,13 +154,13 @@ export default function AdminRegister() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 dark:from-gray-900 dark:via-red-900/20 dark:to-orange-900/20 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-indigo-900/20 flex items-center justify-center p-4">
       <LoadingOverlay isLoading={isLoading} message="Creating your admin account..." />
 
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-red-200/20 dark:bg-red-800/10 rounded-full opacity-60 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-200/20 dark:bg-orange-800/10 rounded-full opacity-40 animate-pulse delay-1000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200/20 dark:bg-purple-800/10 rounded-full opacity-60 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-200/20 dark:bg-indigo-800/10 rounded-full opacity-40 animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-2xl">
@@ -169,11 +169,11 @@ export default function AdminRegister() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <Card className="glass-effect shadow-2xl border-0 dark:bg-gray-800/50">
             <CardHeader className="text-center space-y-4 pb-8">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <div>
-                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
                   Create Admin Account
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400 mt-2">

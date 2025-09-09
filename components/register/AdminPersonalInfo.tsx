@@ -32,11 +32,11 @@ export function AdminPersonalInfo({ formData, errors, onChange }: AdminPersonalI
             placeholder="Enter first name"
             value={formData.firstName}
             onChange={onChange}
-            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-              errors.firstName ? "border-red-500" : ""
+            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+              errors.firstName ? "border-purple-500" : ""
             }`}
           />
-          {errors.firstName && <p className="text-red-600 text-sm">{errors.firstName}</p>}
+          {errors.firstName && <p className="text-purple-600 text-sm">{errors.firstName}</p>}
         </div>
 
         <div className="space-y-2">
@@ -50,11 +50,11 @@ export function AdminPersonalInfo({ formData, errors, onChange }: AdminPersonalI
             placeholder="Enter last name"
             value={formData.lastName}
             onChange={onChange}
-            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-              errors.lastName ? "border-red-500" : ""
+            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+              errors.lastName ? "border-purple-500" : ""
             }`}
           />
-          {errors.lastName && <p className="text-red-600 text-sm">{errors.lastName}</p>}
+          {errors.lastName && <p className="text-purple-600 text-sm">{errors.lastName}</p>}
         </div>
       </div>
 
@@ -70,11 +70,11 @@ export function AdminPersonalInfo({ formData, errors, onChange }: AdminPersonalI
           placeholder="Enter email address"
           value={formData.email}
           onChange={onChange}
-          className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-            errors.email ? "border-red-500" : ""
+          className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+            errors.email ? "border-purple-500" : ""
           }`}
         />
-        {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
+        {errors.email && <p className="text-purple-600 text-sm">{errors.email}</p>}
       </div>
 
       <div className="space-y-2">
@@ -89,11 +89,11 @@ export function AdminPersonalInfo({ formData, errors, onChange }: AdminPersonalI
           placeholder="Enter staff ID"
           value={formData.staffId}
           onChange={onChange}
-          className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 ${
-            errors.staffId ? "border-red-500" : ""
+          className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 ${
+            errors.staffId ? "border-purple-500" : ""
           }`}
         />
-        {errors.staffId && <p className="text-red-600 text-sm">{errors.staffId}</p>}
+        {errors.staffId && <p className="text-purple-600 text-sm">{errors.staffId}</p>}
       </div>
     </div>
   )

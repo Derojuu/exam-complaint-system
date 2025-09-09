@@ -58,6 +58,7 @@ export const AdminSidebar = forwardRef<AdminSidebarRef, { children: React.ReactN
       { name: "Dashboard", href: "/admin/dashboard", icon: BarChart3 },
       { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
       { name: "Complaints", href: "/admin/complaints", icon: FileText },
+      { name: "Notifications", href: "/admin/notifications", icon: Bell },
       { name: "Profile", href: "/admin/profile", icon: User },
       { name: "Settings", href: "/admin/settings", icon: Settings },
     ]

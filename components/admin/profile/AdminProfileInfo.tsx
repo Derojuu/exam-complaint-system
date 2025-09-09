@@ -30,17 +30,17 @@ export function AdminProfileInfo({
 
   return (
     <Card className="glass-effect border-0 shadow-lg">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-6">
-        <div>
-          <CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100">Personal Information</CardTitle>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Manage your admin profile details</p>
+      <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0 pb-4 sm:pb-6 px-4 sm:px-6">
+        <div className="min-w-0 flex-1">
+          <CardTitle className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">Personal Information</CardTitle>
+          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Manage your admin profile details</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-start sm:justify-end">
           {!isEditing ? (
             <Button
               onClick={() => setIsEditing(true)}
               size="sm"
-              className="btn-gradient"
+              className="btn-gradient text-sm"
             >
               <Edit3 className="w-4 h-4 mr-2" />
               Edit Profile
@@ -51,7 +51,7 @@ export function AdminProfileInfo({
                 onClick={() => setIsEditing(false)}
                 variant="outline"
                 size="sm"
-                className="border-gray-200 dark:border-gray-700"
+                className="border-gray-200 dark:border-gray-700 text-sm"
               >
                 <X className="w-4 h-4 mr-2" />
                 Cancel
@@ -60,7 +60,7 @@ export function AdminProfileInfo({
                 onClick={handleSaveProfile}
                 disabled={isSaving}
                 size="sm"
-                className="btn-gradient"
+                className="btn-gradient text-sm"
               >
                 {isSaving ? (
                   <>
@@ -79,11 +79,11 @@ export function AdminProfileInfo({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-4 sm:pb-6">
         <Separator />
         
-        <div className="grid gap-6">
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="firstName" className="text-sm font-medium flex items-center text-gray-700 dark:text-gray-300">
                 <User className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
@@ -95,7 +95,7 @@ export function AdminProfileInfo({
                 value={formData.firstName}
                 onChange={handleInputChange}
                 disabled={!isEditing}
-                className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+                className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
               />
             </div>
 
@@ -109,7 +109,7 @@ export function AdminProfileInfo({
                 value={formData.lastName}
                 onChange={handleInputChange}
                 disabled={!isEditing}
-                className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+                className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
               />
             </div>
           </div>
@@ -126,7 +126,7 @@ export function AdminProfileInfo({
               value={formData.email}
               onChange={handleInputChange}
               disabled={!isEditing}
-              className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+              className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
             />
           </div>
 
@@ -143,11 +143,11 @@ export function AdminProfileInfo({
               onChange={handleInputChange}
               disabled={!isEditing}
               placeholder="Enter phone number"
-              className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+              className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
             />
           </div>
 
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="department" className="text-sm font-medium flex items-center text-gray-700 dark:text-gray-300">
                 <BookOpen className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
@@ -160,7 +160,7 @@ export function AdminProfileInfo({
                 onChange={handleInputChange}
                 disabled={!isEditing}
                 placeholder="Enter department"
-                className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+                className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
               />
             </div>
 
@@ -176,7 +176,7 @@ export function AdminProfileInfo({
                 onChange={handleInputChange}
                 disabled={!isEditing}
                 placeholder="Enter position"
-                className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+                className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ export function AdminProfileInfo({
               onChange={handleInputChange}
               disabled={!isEditing}
               placeholder="Tell us about yourself..."
-              className="min-h-[100px] bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800"
+              className="min-h-[80px] sm:min-h-[100px] bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 dark:disabled:bg-gray-800 text-sm sm:text-base"
             />
           </div>
         </div>

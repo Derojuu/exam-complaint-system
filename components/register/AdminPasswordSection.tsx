@@ -42,8 +42,8 @@ export function AdminPasswordSection({
             placeholder="Enter password (min 8 characters)"
             value={formData.password}
             onChange={onChange}
-            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 pr-12 ${
-              errors.password ? "border-red-500" : ""
+            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 ${
+              errors.password ? "border-purple-500" : ""
             }`}
           />
           <button
@@ -54,7 +54,7 @@ export function AdminPasswordSection({
             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         </div>
-        {errors.password && <p className="text-red-600 text-sm">{errors.password}</p>}
+        {errors.password && <p className="text-purple-600 text-sm">{errors.password}</p>}
       </div>
 
       <div className="space-y-2">
@@ -69,8 +69,8 @@ export function AdminPasswordSection({
             placeholder="Confirm your password"
             value={formData.confirmPassword}
             onChange={onChange}
-            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-red-500 focus:ring-red-500/20 pr-12 ${
-              errors.confirmPassword ? "border-red-500" : ""
+            className={`h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 ${
+              errors.confirmPassword ? "border-purple-500" : ""
             }`}
           />
           <button
@@ -81,7 +81,7 @@ export function AdminPasswordSection({
             {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
           </button>
         </div>
-        {errors.confirmPassword && <p className="text-red-600 text-sm">{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="text-purple-600 text-sm">{errors.confirmPassword}</p>}
       </div>
 
       <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">

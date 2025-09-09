@@ -169,7 +169,7 @@ export default function ComplaintDetail() {
     setIsSubmitting(true)
 
     try {
-      const res = await fetch(`/api/auth/complaints/${complaintId}/response`, {
+      const res = await fetch(`/api/auth/complaints/${complaintId}/responses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

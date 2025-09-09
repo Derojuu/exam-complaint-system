@@ -40,14 +40,14 @@ export function AdminSecuritySection({
 
   return (
     <Card className="glass-effect border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
-          <Shield className="w-5 h-5 mr-2 text-purple-600" />
+      <CardHeader className="px-4 sm:px-6 pb-4 sm:pb-6">
+        <CardTitle className="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
+          <Shield className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-600" />
           Security Settings
         </CardTitle>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Change your admin password</p>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Change your admin password</p>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-4 sm:pb-6">
         <div className="space-y-2">
           <Label htmlFor="currentPassword" className="text-sm font-medium flex items-center text-gray-700 dark:text-gray-300">
             <Key className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />
@@ -60,14 +60,14 @@ export function AdminSecuritySection({
               value={passwordData.currentPassword}
               onChange={(e) => handlePasswordChange('currentPassword', e.target.value)}
               placeholder="Enter current password"
-              className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12"
+              className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 text-sm sm:text-base"
             />
             <button
               type="button"
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               onClick={() => setShowCurrentPassword(!showCurrentPassword)}
             >
-              {showCurrentPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showCurrentPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
         </div>
@@ -84,14 +84,14 @@ export function AdminSecuritySection({
               value={passwordData.newPassword}
               onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
               placeholder="Enter new password (min 8 characters)"
-              className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12"
+              className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 text-sm sm:text-base"
             />
             <button
               type="button"
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               onClick={() => setShowNewPassword(!showNewPassword)}
             >
-              {showNewPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showNewPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
         </div>
@@ -107,14 +107,14 @@ export function AdminSecuritySection({
               value={passwordData.confirmPassword}
               onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
               placeholder="Confirm new password"
-              className="h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12"
+              className="h-10 sm:h-12 bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 pr-12 text-sm sm:text-base"
             />
             <button
               type="button"
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showConfirmPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
         </div>
@@ -122,7 +122,7 @@ export function AdminSecuritySection({
         <Button
           onClick={handleChangePassword}
           disabled={isSaving || !passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
-          className="w-full h-12 btn-gradient"
+          className="w-full h-10 sm:h-12 btn-gradient text-sm sm:text-base"
         >
           {isSaving ? (
             <>
@@ -137,8 +137,8 @@ export function AdminSecuritySection({
           )}
         </Button>
 
-        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-          <p className="text-sm text-amber-800 dark:text-amber-200">
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-amber-800 dark:text-amber-200">
             <strong>Password Requirements:</strong> Admin passwords must be at least 8 characters long and contain a mix of letters, numbers, and special characters for security.
           </p>
         </div>

@@ -115,6 +115,11 @@ export default function Profile() {
       } else {
         // Load student stats
         const res = await fetch(`/api/student/complaints/stats?userId=${currentUser.id}`)
+        
+        if (!res.ok) {
+          throw new Error("Failed to fetch stats")
+        }
+        
         const data = await res.json()
 
         setStats({
