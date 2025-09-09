@@ -289,89 +289,91 @@ export default function AdminProfile() {
           </div>
         </header>
 
-        <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 relative z-10 max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div className="min-w-0 flex-1">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 truncate">Admin Profile</h1>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">
-                Manage your administrative account and system access
-              </p>
+        <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 relative z-10">
+          <div className="max-w-7xl mx-auto w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="min-w-0 flex-1">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 truncate">Admin Profile</h1>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">
+                  Manage your administrative account and system access
+                </p>
+              </div>
+              <Badge className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800 px-3 py-1 w-fit self-start sm:self-center">
+                <Shield className="w-4 h-4 mr-2" />
+                Administrator
+              </Badge>
             </div>
-            <Badge className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800 px-3 py-1 w-fit self-start sm:self-center">
-              <Shield className="w-4 h-4 mr-2" />
-              Administrator
-            </Badge>
+
+            <AdminProfileHeader user={user} />
+            <AdminStatsCards adminStats={adminStats} />
+
+            <Card className="glass-effect border-0 shadow-lg">
+              <CardContent className="p-4 sm:p-6">
+                <AdminProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+                
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
+                  <TabsContent value="profile" className="space-y-4 sm:space-y-6">
+                    <AdminProfileInfo
+                      user={user}
+                      formData={formData}
+                      isEditing={isEditing}
+                      isSaving={isSaving}
+                      setIsEditing={setIsEditing}
+                      handleInputChange={handleInputChange}
+                      handleSaveProfile={handleSaveProfile}
+                    />
+                  </TabsContent>
+
+                  <TabsContent value="security" className="space-y-4 sm:space-y-6">
+                    <AdminSecuritySection
+                      passwordData={passwordData}
+                      showCurrentPassword={showCurrentPassword}
+                      showNewPassword={showNewPassword}
+                      showConfirmPassword={showConfirmPassword}
+                      isSaving={isSaving}
+                      setPasswordData={setPasswordData}
+                      setShowCurrentPassword={setShowCurrentPassword}
+                      setShowNewPassword={setShowNewPassword}
+                      setShowConfirmPassword={setShowConfirmPassword}
+                      handleChangePassword={handleChangePassword}
+                    />
+                  </TabsContent>
+
+                  <TabsContent value="stats" className="space-y-4 sm:space-y-6">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <AdminStatsCards adminStats={adminStats} />
+                    </motion.div>
+                  </TabsContent>
+
+                  <TabsContent value="notifications" className="space-y-4 sm:space-y-6">
+                    <Card className="glass-effect border-0 shadow-lg">
+                      <CardContent className="p-4 sm:p-6">
+                        <h3 className="text-lg sm:text-xl font-bold mb-4">Notification Settings</h3>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                          Notification settings will be available in a future update.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  <TabsContent value="preferences" className="space-y-4 sm:space-y-6">
+                    <Card className="glass-effect border-0 shadow-lg">
+                      <CardContent className="p-4 sm:p-6">
+                        <h3 className="text-lg sm:text-xl font-bold mb-4">Admin Preferences</h3>
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                          Advanced admin preferences will be available in a future update.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
           </div>
-
-          <AdminProfileHeader user={user} />
-          <AdminStatsCards adminStats={adminStats} />
-
-          <Card className="glass-effect border-0 shadow-lg mx-auto max-w-full">
-            <CardContent className="p-4 sm:p-6">
-              <AdminProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-              
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
-                <TabsContent value="profile" className="space-y-4 sm:space-y-6">
-                  <AdminProfileInfo
-                    user={user}
-                    formData={formData}
-                    isEditing={isEditing}
-                    isSaving={isSaving}
-                    setIsEditing={setIsEditing}
-                    handleInputChange={handleInputChange}
-                    handleSaveProfile={handleSaveProfile}
-                  />
-                </TabsContent>
-
-                <TabsContent value="security" className="space-y-4 sm:space-y-6">
-                  <AdminSecuritySection
-                    passwordData={passwordData}
-                    showCurrentPassword={showCurrentPassword}
-                    showNewPassword={showNewPassword}
-                    showConfirmPassword={showConfirmPassword}
-                    isSaving={isSaving}
-                    setPasswordData={setPasswordData}
-                    setShowCurrentPassword={setShowCurrentPassword}
-                    setShowNewPassword={setShowNewPassword}
-                    setShowConfirmPassword={setShowConfirmPassword}
-                    handleChangePassword={handleChangePassword}
-                  />
-                </TabsContent>
-
-                <TabsContent value="stats" className="space-y-4 sm:space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <AdminStatsCards adminStats={adminStats} />
-                  </motion.div>
-                </TabsContent>
-
-                <TabsContent value="notifications" className="space-y-4 sm:space-y-6">
-                  <Card className="glass-effect border-0 shadow-lg">
-                    <CardContent className="p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-bold mb-4">Notification Settings</h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                        Notification settings will be available in a future update.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-
-                <TabsContent value="preferences" className="space-y-4 sm:space-y-6">
-                  <Card className="glass-effect border-0 shadow-lg">
-                    <CardContent className="p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-bold mb-4">Admin Preferences</h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                        Advanced admin preferences will be available in a future update.
-                      </p>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
         </div>
       </div>
       <Toaster />
