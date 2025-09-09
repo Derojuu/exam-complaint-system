@@ -182,8 +182,8 @@ export default function AdminRegister() {
               </div>
             </CardHeader>
 
-            <CardContent className="space-y-8">
-              <form onSubmit={handleSubmit} className="space-y-8">
+            <CardContent className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <AdminPersonalInfo
                   formData={formData}
                   errors={errors}
@@ -226,7 +226,7 @@ export default function AdminRegister() {
                   Already have an admin account?{" "}
                   <Link
                     href="/login"
-                    className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-medium transition-colors"
+                    className="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-medium transition-colors"
                   >
                     Sign in here
                   </Link>

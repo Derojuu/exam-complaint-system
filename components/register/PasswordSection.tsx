@@ -79,6 +79,12 @@ export function PasswordSection({ formData, errors, onChange }: PasswordSectionP
           <p className="text-sm text-red-500 dark:text-red-400">{errors.confirmPassword}</p>
         )}
       </div>
+
+      <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+        <p className="text-sm text-purple-800 dark:text-purple-200">
+          <strong>Password Requirements:</strong> Must be at least 8 characters long and contain uppercase, lowercase, and number characters.
+        </p>
+      </div>
     </div>
   )
 }
