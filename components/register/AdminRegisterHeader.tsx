@@ -23,13 +23,7 @@ export function AdminRegisterHeader() {
         transition={{ duration: 0.6 }}
         className="text-center mb-8"
       >
-        <div className="mx-auto w-16 h-16 bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg mb-4">
-          <Shield className="w-8 h-8 text-white" />
-        </div>
-        <h1 className="text-3xl font-bold text-gradient mb-2">Admin Registration</h1>
-        <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-          Create an administrator account to manage the exam complaint system
-        </p>
+
       </motion.div>
     </>
   )
