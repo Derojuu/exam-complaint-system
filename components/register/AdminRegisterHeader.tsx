@@ -23,6 +23,7 @@ export function AdminRegisterHeader() {
         transition={{ duration: 0.6 }}
         className="text-center mb-8"
       >
+     
       </motion.div>
     </>
   )
