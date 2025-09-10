@@ -290,7 +290,7 @@ export default function AdminProfile() {
         </header>
 
         <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 relative z-10">
-          <div className="max-w-7xl mx-auto w-full">
+          <div className="max-w-5xl mx-auto w-full">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="min-w-0 flex-1">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 truncate">Admin Profile</h1>
