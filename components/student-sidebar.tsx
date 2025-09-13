@@ -47,6 +47,38 @@ export const StudentSidebar = forwardRef<StudentSidebarRef, { children: React.Re
       loadUser()
     }, [router])
 
+    // Refresh user data when on profile page to get updated profile picture
+    useEffect(() => {
+      const refreshUserData = async () => {
+        if (user) {
+          try {
+            const userData = await getCurrentUser()
+            if (userData) {
+              setUser(userData)
+            }
+          } catch (error) {
+            console.error("Error refreshing user data:", error)
+          }
+        }
+      }
+
+      // Listen for profile update events
+      const handleProfileUpdate = () => {
+        refreshUserData()
+      }
+
+      window.addEventListener('profileUpdated', handleProfileUpdate)
+
+      // Refresh when visiting profile page
+      if (pathname === "/profile") {
+        refreshUserData()
+      }
+
+      return () => {
+        window.removeEventListener('profileUpdated', handleProfileUpdate)
+      }
+    }, [pathname, user?.id])
+
     // Prevent body scroll when sidebar is open
     useEffect(() => {
       if (isOpen) {

@@ -92,16 +92,20 @@ export const AdminSidebar = forwardRef<AdminSidebarRef, { children: React.ReactN
 
     return (
       <>
-        <LoadingOverlay isLoading={logoutLoading} message="Signing out..." />        {/* Sidebar overlay */}
+        <LoadingOverlay isLoading={logoutLoading} message="Signing out..." />
+        
+        {/* Sidebar overlay */}
         {isOpen && (
           <div
             className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
             onClick={() => setIsOpen(false)}
           />
-        )}{/* Sidebar */}
+        )}
+
+        {/* Sidebar */}
         <aside
           className={`
-          fixed top-0 left-0 z-50 h-full w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-xl
+          fixed top-0 left-0 z-50 h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-xl
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}

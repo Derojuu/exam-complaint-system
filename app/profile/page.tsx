@@ -40,7 +40,6 @@ export default function Profile() {
     lastName: "",
     email: "",
     phone: "",
-    bio: "",
     profilePicUrl: "",
     department: "",
     position: ""
@@ -69,7 +68,6 @@ export default function Profile() {
           lastName: currentUser.lastName || "",
           email: currentUser.email || "",
           phone: currentUser.phone || "",
-          bio: currentUser.bio || "",
           profilePicUrl: currentUser.profilePicUrl || "",
           department: currentUser.department || "",
           position: currentUser.position || ""
@@ -143,16 +141,21 @@ export default function Profile() {
         headers: {
           "Content-Type": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify(formData)
       })
 
       if (!response.ok) {
-        throw new Error("Failed to update profile")
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Failed to update profile")
       }
 
       const updatedUser = await response.json()
       setUser(updatedUser)
       setIsEditing(false)
+      
+      // Trigger sidebar refresh
+      window.dispatchEvent(new CustomEvent('profileUpdated'))
       
       toast({
         title: "Profile updated",
@@ -234,22 +237,31 @@ export default function Profile() {
   const uploadProfilePic = async (file: File): Promise<string> => {
     const formData = new FormData()
     formData.append("file", file)
-    formData.append("upload_preset", "ml_default")
 
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
+    try {
+      const response = await fetch("/api/upload?type=profile", {
         method: "POST",
-        body: formData
-      }
-    )
+        body: formData,
+        credentials: "include"
+      })
 
-    if (!response.ok) {
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.error("Upload API error response:", errorData)
+        throw new Error(errorData.message || `Upload failed: ${response.status}`)
+      }
+
+      const data = await response.json()
+      if (!data.success || !data.url) {
+        throw new Error(data.message || "Upload failed - no URL returned")
+      }
+
+      console.log("Upload success:", data)
+      return data.url
+    } catch (error) {
+      console.error("Upload error:", error)
       throw new Error("Failed to upload image")
     }
-
-    const data = await response.json()
-    return data.secure_url
   }
 
   if (loading) {

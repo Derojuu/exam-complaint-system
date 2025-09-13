@@ -42,17 +42,16 @@ export function AdminRoleInfo({
             <SelectValue placeholder="Select your position" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="admin">System Administrator</SelectItem>
-            <SelectItem value="coordinator">Exam Coordinator</SelectItem>
-            <SelectItem value="hod">Head of Department</SelectItem>
+            <SelectItem value="lecturer">Lecturer</SelectItem>
+            <SelectItem value="hod">Head of Department (HOD)</SelectItem>
             <SelectItem value="dean">Dean</SelectItem>
-            <SelectItem value="registrar">Registrar</SelectItem>
+            <SelectItem value="system_admin">System Admin</SelectItem>
           </SelectContent>
         </Select>
         {errors.position && <p className="text-purple-600 text-sm">{errors.position}</p>}
       </div>
 
-      {(position === "hod" || position === "coordinator") && (
+      {(position === "hod" || position === "lecturer") && (
         <div className="space-y-2">
           <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center">
             <Building className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" />

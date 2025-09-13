@@ -83,8 +83,8 @@ export default function AdminRegister() {
       newErrors.position = "Position is required"
     }
 
-    if (position === "hod" && !department) {
-      newErrors.department = "Department is required for HOD"
+    if ((position === "hod" || position === "lecturer") && !department) {
+      newErrors.department = position === "hod" ? "Department is required for HOD" : "Department is required for Lecturer"
     }
 
     if (position === "dean" && !faculty) {

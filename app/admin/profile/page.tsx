@@ -262,35 +262,39 @@ export default function AdminProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative">
       <AdminSidebar ref={adminSidebarRef}>
         <div />
       </AdminSidebar>
-      
-      <div className="lg:ml-64 flex flex-col min-h-screen">
-        <header className="sticky top-0 z-40 glass-effect border-b border-gray-200 dark:border-gray-800">
-          <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center space-x-4 min-w-0 flex-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="lg:hidden p-2 hover:bg-purple-100 dark:hover:bg-purple-900/20"
-                onClick={() => adminSidebarRef.current?.toggleSidebar()}
-              >
-                <Menu className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-              </Button>
-              <div className="min-w-0 flex-1">
-                <h1 className="text-xl font-bold text-gradient truncate">Admin Profile</h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400 hidden sm:block">
-                  Manage your admin profile and settings
-                </p>
-              </div>
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200/20 dark:bg-purple-800/10 rounded-full opacity-60 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200/20 dark:bg-blue-800/10 rounded-full opacity-40 animate-pulse delay-1000"></div>
+      </div>
+      {/* Header */}
+      <header className="glass-effect border-b border-white/20 dark:border-gray-700/20 sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-2 flex justify-between items-center">
+          <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-2 hover:bg-purple-100 dark:hover:bg-purple-900/20"
+              onClick={() => adminSidebarRef.current?.toggleSidebar()}
+            >
+              <Menu className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            </Button>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gradient truncate">Admin Profile</h1>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 hidden sm:block">
+                Manage your admin profile and settings
+              </p>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        <div className="flex-1 p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 relative z-10">
-          <div className="w-full max-w-6xl mx-auto px-4">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 pt-2 pb-3 sm:pt-3 sm:pb-4 lg:pt-4 lg:pb-8 relative z-10">
+        <div className="max-w-7xl mx-auto w-full">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div className="min-w-0 flex-1">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 truncate">Admin Profile</h1>
@@ -374,8 +378,7 @@ export default function AdminProfile() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </div>
+      </main>
       <Toaster />
     </div>
   )

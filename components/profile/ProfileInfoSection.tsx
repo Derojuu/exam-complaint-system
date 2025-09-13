@@ -271,26 +271,6 @@ export function ProfileInfoSection({
             />
           </div>
         )}
-
-        <div className="space-y-2">
-          <Label htmlFor="bio" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            {isAdmin ? "About" : "Bio"} (Optional)
-          </Label>
-          <Textarea
-            id="bio"
-            name="bio"
-            value={formData.bio}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-            placeholder={
-              isAdmin
-                ? "Brief description of your role and responsibilities..."
-                : "Tell us a bit about yourself..."
-            }
-            rows={3}
-            className="bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500/20 disabled:bg-gray-50 disabled:text-gray-500 dark:disabled:bg-gray-800 dark:disabled:text-gray-400 resize-none text-gray-900 dark:text-gray-100"
-          />
-        </div>
       </div>
     </div>
   )
