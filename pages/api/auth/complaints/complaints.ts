@@ -94,6 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               }
               break;
 
+            case 'system_admin':
             case 'system-administrator':
             case 'admin':
               // System administrators view all complaints

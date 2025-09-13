@@ -21,7 +21,7 @@ export function ComplaintsMobileCards({ complaints, getStatusBadge }: ComplaintC
     );
   }
   return (
-    <div className="block sm:hidden space-y-3">
+    <div className="space-y-3">
       {complaints.map((complaint, index: number) => (
         <motion.div
           key={complaint.referenceNumber}

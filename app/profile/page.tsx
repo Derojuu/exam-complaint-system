@@ -277,33 +277,35 @@ export default function Profile() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 sm:p-6">
-        <ProfileHeader isAdmin={isAdmin} userName={userName} />
-        
-        <ProfileStatsCards isAdmin={isAdmin} stats={stats} />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 pt-2 pb-3 sm:pt-3 sm:pb-4 lg:pt-4 lg:pb-8">
+          <ProfileHeader isAdmin={isAdmin} userName={userName} />
+          
+          <ProfileStatsCards isAdmin={isAdmin} stats={stats} />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <ProfileTabs
-            isAdmin={isAdmin}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            user={user}
-            formData={formData}
-            setFormData={setFormData}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            isSaving={isSaving}
-            passwordData={passwordData}
-            setPasswordData={setPasswordData}
-            onSaveProfile={handleSaveProfile}
-            onChangePassword={handleChangePassword}
-            onFileUpload={uploadProfilePic}
-          />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <ProfileTabs
+              isAdmin={isAdmin}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              user={user}
+              formData={formData}
+              setFormData={setFormData}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              isSaving={isSaving}
+              passwordData={passwordData}
+              setPasswordData={setPasswordData}
+              onSaveProfile={handleSaveProfile}
+              onChangePassword={handleChangePassword}
+              onFileUpload={uploadProfilePic}
+            />
+          </motion.div>
+        </div>
       </div>
       <Toaster />
     </DashboardLayout>

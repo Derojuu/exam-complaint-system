@@ -50,16 +50,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'PATCH') {
-      // Mark notification as read
-      const { notificationId } = req.body
+      const { notificationId, markAllAsRead } = req.body
 
-      await executeQuery(`
-        UPDATE notifications 
-        SET is_read = TRUE, read_at = NOW(), updated_at = NOW()
-        WHERE id = $1 AND user_id = $2
-      `, [notificationId, session.userId])
+      if (markAllAsRead) {
+        // Mark all notifications as read for the user
+        await executeQuery(`
+          UPDATE notifications 
+          SET is_read = TRUE, read_at = NOW(), updated_at = NOW()
+          WHERE user_id = $1 AND is_read = FALSE
+        `, [session.userId])
 
-      return res.status(200).json({ success: true })
+        return res.status(200).json({ success: true })
+      } else {
+        // Mark single notification as read
+        await executeQuery(`
+          UPDATE notifications 
+          SET is_read = TRUE, read_at = NOW(), updated_at = NOW()
+          WHERE id = $1 AND user_id = $2
+        `, [notificationId, session.userId])
+
+        return res.status(200).json({ success: true })
+      }
     }
 
     if (req.method === 'DELETE') {

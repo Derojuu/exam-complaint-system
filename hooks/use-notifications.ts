@@ -86,15 +86,30 @@ export function useNotifications(apiUrl = '/api/notifications') {
 
   const markAllAsRead = useCallback(async () => {
     try {
-      const unreadNotifications = notifications.filter(n => !n.isRead)
+      const response = await fetch(apiUrl, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ markAllAsRead: true }),
+        credentials: 'include'
+      })
       
-      await Promise.all(
-        unreadNotifications.map(n => markAsRead(n.id))
-      )
+      if (response.ok) {
+        // Update local state to mark all notifications as read
+        setNotifications(prev => 
+          prev.map(n => ({ 
+            ...n, 
+            isRead: true, 
+            readAt: new Date() 
+          }))
+        )
+        setUnreadCount(0)
+      }
     } catch (error) {
       console.error('Error marking all notifications as read:', error)
     }
-  }, [notifications, markAsRead])
+  }, [apiUrl])
 
   useEffect(() => {
     fetchNotifications()

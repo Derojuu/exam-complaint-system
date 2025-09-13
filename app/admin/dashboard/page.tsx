@@ -248,7 +248,9 @@ export default function AdminDashboard() {
                 </div>
               </div>
               {/* Mobile Card View */}
-              <ComplaintsMobileCards complaints={filteredComplaints} getStatusBadge={getStatusBadge} />
+              <div className="block sm:hidden">
+                <ComplaintsMobileCards complaints={filteredComplaints} getStatusBadge={getStatusBadge} />
+              </div>
               {/* Desktop Table View */}
               <div className="hidden sm:block rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden bg-white/50 dark:bg-gray-800/30">
                 <Table>
