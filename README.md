@@ -4,16 +4,17 @@ A modern web-based application for managing student exam complaints with role-ba
 
 ## 🎯 Project Overview
 
-This system provides an efficient platform for students to submit exam complaints and for administrators to manage and respond to these complaints based on their institutional roles and responsibilities. The system features automatic database initialization and a robust PostgreSQL backend with UUID-based primary keys.
+This system provides an efficient platform for students to submit exam complaints and for administrators to manage and respond to these complaints based on their institutional roles and responsibilities. The system features automatic database initialization, enterprise-level Row Level Security (RLS), robust PostgreSQL backend with UUID-based primary keys, and a modern responsive interface with comprehensive profile management.
 
 ## 🚀 Key Features
 
 ### Student Features
 - **Account Registration & Login**: Secure user authentication system with UUID-based user management
+- **Profile Management**: Complete profile editing with Cloudinary-powered profile picture uploads and real-time sidebar updates
 - **Complaint Submission**: Submit detailed exam complaints with form validation and automatic reference number generation
 - **Complaint Tracking**: Track complaint status and view administrator responses in real-time
 - **Dashboard**: Personal dashboard to view all submitted complaints with advanced filtering
-- **Notifications**: Real-time notification system for complaint updates
+- **Notifications**: Real-time notification system with persistent 'mark all as read' functionality
 
 ### Admin Features
 - **Role-Based Access Control**: Different access levels based on institutional position
@@ -21,16 +22,18 @@ This system provides an efficient platform for students to submit exam complaint
   - **HODs**: View complaints within their department  
   - **Deans**: View complaints within their faculty
   - **System Administrators**: View all complaints system-wide
+- **Enhanced Dashboard**: Improved complaint management with fixed responsive layouts and no duplicate fallback messages
 - **Complaint Management**: Review, respond to, and update complaint statuses with full audit trail
 - **Analytics Dashboard**: View complaint statistics, trends, and performance metrics
 - **Email Notifications**: Automated email notifications for responses and status changes
-- **Admin Profile Management**: Update profile information and system settings
+- **Admin Profile Management**: Complete profile system with Cloudinary uploads and wide responsive layouts
 
 ### System Features
-- **Responsive Design**: Mobile-friendly interface with modern UI components
+- **Responsive Design**: Mobile-friendly interface with modern UI components and consistent wide layouts
 - **Dark Mode Support**: Complete dark/light theme toggle with system preference detection
-- **Real-time Notifications**: Toast notifications and notification dropdown for user actions
-- **Security**: Session-based authentication with bcrypt password encryption
+- **Real-time Notifications**: Toast notifications and notification dropdown with persistent state management
+- **Enterprise Security**: Row Level Security (RLS) with custom authentication integration and session-based auth
+- **Profile System**: Complete profile management with Cloudinary integration and real-time sidebar updates
 - **Auto Database Setup**: Automatic table creation and initialization on first run
 - **SSL Support**: Configured for Supabase with certificate validation bypass
 - **UUID-Based Schema**: Modern UUID primary keys with proper foreign key relationships
@@ -47,10 +50,11 @@ This system provides an efficient platform for students to submit exam complaint
 
 ### Backend
 - **Next.js API Routes** - Server-side API endpoints with TypeScript support
-- **PostgreSQL** - Modern relational database with JSONB support
-- **Supabase** - Cloud PostgreSQL hosting with real-time capabilities
+- **PostgreSQL** - Modern relational database with JSONB support and Row Level Security (RLS)
+- **Supabase** - Cloud PostgreSQL hosting with real-time capabilities and RLS policies
 - **node-postgres (pg)** - PostgreSQL client for Node.js with connection pooling
 - **bcryptjs** - Secure password hashing and verification
+- **Cloudinary** - Cloud-based image upload and management service
 - **Nodemailer** - Email service integration
 - **UUID Extension** - PostgreSQL UUID generation support
 
@@ -136,6 +140,14 @@ The system enforces access control based on admin positions:
 - Faculty-level access for Deans
 - System-wide access for Administrators
 
+### Row Level Security (RLS) Implementation
+Enterprise-level database security with custom authentication integration:
+- **Database-Level Protection**: RLS policies prevent unauthorized access even if API is bypassed
+- **Custom Auth Integration**: Session variables set database context for role-based filtering
+- **Multi-Layer Security**: API authentication combined with database-level access control
+- **Audit Trail Protection**: Only system administrators can access audit logs
+- **Real-time Policy Enforcement**: Database automatically filters data based on user context
+
 ## 📚 System Architecture
 
 ### Authentication Flow
@@ -161,6 +173,8 @@ The system enforces access control based on admin positions:
 
 ## 🔒 Security Features
 
+- **Row Level Security (RLS)**: Enterprise-level database security with custom authentication integration
+- **Multi-Layer Protection**: API authentication combined with database-level access control
 - **Session-Based Authentication**: Secure HTTP-only cookies with UUID session IDs
 - **Password Security**: bcrypt hashing with salt rounds and validation
 - **SQL Injection Protection**: Parameterized queries with prepared statements
@@ -169,6 +183,7 @@ The system enforces access control based on admin positions:
 - **SSL Certificate Handling**: Configured for secure Supabase connections
 - **CSRF Protection**: Built-in Next.js CSRF protection
 - **UUID Security**: Non-sequential UUIDs prevent enumeration attacks
+- **API Bypass Protection**: RLS prevents unauthorized data access even if API is compromised
 
 ## 🎯 Project Objectives
 
@@ -182,14 +197,17 @@ The system enforces access control based on admin positions:
 
 ## 📊 Key Achievements
 
+- ✅ **Enterprise Security Implementation**: Row Level Security (RLS) with custom authentication integration
+- ✅ **Complete Profile System**: Cloudinary-powered profile management with real-time updates
+- ✅ **Enhanced User Experience**: Fixed notifications persistence, responsive layouts, and UI consistency
 - ✅ **Complete MySQL to PostgreSQL Migration**: Successfully migrated from MySQL to PostgreSQL
 - ✅ **Automatic Database Setup**: Tables created automatically with proper relationships
 - ✅ **UUID Implementation**: Modern UUID-based primary keys for all entities
 - ✅ **SSL Certificate Resolution**: Proper SSL configuration for Supabase deployment
 - ✅ **Connection Pooling**: Efficient database connection management
-- ✅ **Modern UI**: Updated to Next.js 15 with latest React features
+- ✅ **Modern UI**: Updated to Next.js 15 with latest React features and consistent layouts
 - ✅ **Type Safety**: Complete TypeScript implementation
-- ✅ **Cloud Ready**: Optimized for Supabase and Vercel deployment
+- ✅ **Cloud Ready**: Optimized for Supabase and Vercel deployment with enterprise security
 
 ## 🚀 Future Enhancements
 
