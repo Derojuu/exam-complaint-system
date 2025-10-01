@@ -424,3 +424,109 @@ export async function verifyUserPassword(userId: string, currentPassword: string
 export function generateReferenceNumber() {
   return 'REF-' + Math.floor(100000 + Math.random() * 900000);
 }
+
+export async function executeQueryWithUser(
+  query: string, 
+  params: any[] = [], 
+  userId?: string, 
+  userRole?: string,
+  userPosition?: string,
+  userDepartment?: string,
+  userFaculty?: string
+): Promise<any> {
+  let retries = 3;
+  
+  while (retries > 0) {
+    try {
+      const db = await getDb();
+      const client = await db.connect();
+      try {
+        // Set session variables for RLS
+        if (userId) {
+          await client.query(`SET app.user_id = '${userId}'`);
+        }
+        if (userRole) {
+          await client.query(`SET app.user_role = '${userRole}'`);
+        }
+        if (userPosition) {
+          await client.query(`SET app.user_position = '${userPosition}'`);
+        }
+        if (userDepartment) {
+          await client.query(`SET app.user_department = '${userDepartment}'`);
+        }
+        if (userFaculty) {
+          await client.query(`SET app.user_faculty = '${userFaculty}'`);
+        }
+        
+        const result = await client.query(query, params);
+        return result;
+      } finally {
+        // Clear session variables
+        try {
+          await client.query('RESET app.user_id');
+          await client.query('RESET app.user_role');
+          await client.query('RESET app.user_position');
+          await client.query('RESET app.user_department');
+          await client.query('RESET app.user_faculty');
+        } catch (e) {
+          // Ignore reset errors
+        }
+        client.release();
+      }
+    } catch (error: any) {
+      retries--;
+      console.error(`Query execution failed (${3 - retries}/3):`, error?.message);
+      
+      if (error?.code === 'ECONNRESET' ||
+          error?.code === 'ETIMEDOUT' ||
+          error?.code === 'ENOTFOUND' ||
+          error?.code === 'ECONNREFUSED' ||
+          error?.code === 'SELF_SIGNED_CERT_IN_CHAIN' ||
+          error?.message?.includes('certificate')) {
+        
+        if (pool) {
+          try {
+            await pool.end();
+          } catch (e) {
+            console.log('Error closing pool:', e);
+          }
+          pool = null;
+          isInitialized = false;
+        }
+        
+        if (retries > 0) {
+          console.log('Retrying query with new connection pool...');
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          continue;
+        }
+      }
+      
+      if (retries === 0) {
+        throw error;
+      }
+    }
+  }
+  throw new Error('Query failed after 3 retries');
+}
+
+// Helper function to get user context from session
+export async function executeQueryWithSession(
+  query: string, 
+  params: any[] = [], 
+  sessionUser?: any
+): Promise<any> {
+  if (!sessionUser) {
+    // For system operations, use regular executeQuery
+    return executeQuery(query, params);
+  }
+  
+  return executeQueryWithUser(
+    query, 
+    params, 
+    sessionUser.id, 
+    sessionUser.role,
+    sessionUser.position,
+    sessionUser.department,
+    sessionUser.faculty
+  );
+}
